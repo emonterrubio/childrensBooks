@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		
+		<meta name="format-detection" content="telephone=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<script type="text/javascript">
+		// This automatically sets the right viewport scale on mobile devices
+		(function() {
+ 		var scale = 1 / window.devicePixelRatio
+ 		var viewport = "width=device-width, height=device-height, initial-scale=" + scale + ", maximum-scale=" + scale + ", user-scalable=no"
+ 		var iOS = /iPad|iPhone|iPod/.test(navigator.platform)
+ 		if (iOS) { viewport += ", shrink-to-fit=no" }
+ 		document.write("<meta name=\"viewport\" content=\"" + viewport + "\">")
+		})()
+		</script>
+
+		<link rel="apple-touch-icon" href="framer/images/icon-120.png">
+		<link rel="apple-touch-icon" href="framer/images/icon-76.png" sizes="76x76">
+		<link rel="apple-touch-icon" href="framer/images/icon-120.png" sizes="120x120">
+		<link rel="apple-touch-icon" href="framer/images/icon-152.png" sizes="152x152">
+		<link rel="apple-touch-icon" href="framer/images/icon-180.png" sizes="180x180">
+		<link rel="apple-touch-icon" href="framer/images/icon-192.png" sizes="192x192">
+
+		<link rel="stylesheet" type="text/css" href="framer/style.css?nocache=7bece91ecf32b538794fe8f73c6ecee1">
+
+		<script src="framer/coffee-script.js"></script>
+		<script src="framer/framer.js?nocache=934c841eef2e39a339d922831c1215cf"></script>
+		<script src="framer/framer.generated.js?nocache=86f19d8a20963d14ee31781a905df16e"></script>
+		<script src="framer/framer.modules.js?nocache=0113f53b4168e02750fe805adef96f07"></script>
+		<script>Framer.Device.hideBezel = false</script><script>document.addEventListener("DOMContentLoaded", function() {window.__framerClientCodeId = 1;window.__framerNew = function (n,loc,th,i){if (i == null) { return i };i.__framerInstanceInfo = _.defaults({name:n,location:loc,hash:th},i.__framerInstanceInfo);_.defaults(i.__framerInstanceInfo,{name:"Untitled"});return i;};window.__framerAnimation = function (th,a){if (a.isNoop === true) {return a;};var l = a.layer;if (l == null) { return a; };if (l.__framerAnimationInfo == null) {l.__framerAnimationInfo = {};};l.__framerAnimationInfo[th] = {originalState:a._originalState, destinationProperties: a.properties, destinationOptions: a.options};return a;};(function() {
+  var Firebase, LightGrey, Primary, Secondary, Selection, Text, actionBar, animateIn, animateOut, backArrow, background, bookDetailsScroll, bookListScroll, bookMyNotesScroll, detailsTab, favoriteIcon, favoriteIconDefault, firebase, moreIcon, myNotesTab, navBar, navBarTitle, response, searchIcon, shareIcon, similarTab, sortIcon, starIcon, statusBarWhite, subNavTabs, tabsHairline, writeIcon;
+
+  background = window.__framerNew("background", "1:17-6:28", "#887a371d",new BackgroundLayer({
+    backgroundColor: "white"
+  }));
+
+  Primary = "#00607F";
+
+  Secondary = "#96B7C2";
+
+  Selection = "#1F506B";
+
+  Text = "#4A4A4A";
+
+  LightGrey = "#F6F7F9";
+
+  Utils.insertCSS('@import url(http://fonts.googleapis.com/css?family=Roboto);');
+
+  Utils.insertCSS(".title {color: #4B4F56; font-size: 28px; font-weight: 500;} .bookTitle {color: #4B4F56; font-size: 40px; font-weight: 400; line-height: 40px;} .subtitle {color: #4B4F56; font-size: 30px; font-weight: 300;} .header {color: #4B4F56; font-size: 36px; font-weight: 300;} .text {color: #4B4F56; font-size: 28px; font-weight: 400; line-height: 32px;} .stars {color: #00607F;} .bookDescription {padding-left: 40px; padding-right: 40px;} .lineAdjust05 {height: 5px;} .lineAdjust10 {height: 10px;} .lineAdjust15 {height: 15px;} .lineAdjust20 {height: 20px;} .lineAdjust30 {height: 30px;} .lineAdjust40 {height: 40px;} .line {border-bottom: 1px solid #ccc;} .bookInformation {position:relative;} .amazon {font-family: Roboto; font-size: 28px; text-align: center; border-color: #00607F; border-radius: 4px; padding: 10px; display: block; position: absolute; right: 0; top: 0; color: #00607F; border: 2px solid #00607F;}");
+
+  Firebase = require('firebase').Firebase;
+
+  firebase = window.__framerNew("firebase", "45:15-52:37", "?",new Firebase({
+    projectID: "libraryapp-a5864",
+    secret: "WxkhqECMn8Fk58PsnT5Hm5IbNNkVvBbtu6MV7fgh",
+    server: "s-usc1c-nss-122.firebaseio.com"
+  }));
+
+  animateIn = "spring(450,40,0)";
+
+  animateOut = "spring(550,45,0)";
+
+  subNavTabs = window.__framerNew("subNavTabs", "59:17-64:0", "#171b5f840",new Layer({
+    width: Screen.width,
+    height: 100,
+    y: 0,
+    backgroundColor: LightGrey,
+    visible: false
+  }));
+
+  detailsTab = window.__framerNew("detailsTab", "65:17-69:22", "#16675b3c5",new Layer({
+    width: 250,
+    height: 94,
+    x: 0,
+    backgroundColor: "transparent",
+    html: "Details",
+    superLayer: subNavTabs
+  }));
+
+  detailsTab.style = {
+    color: Primary,
+    textAlign: "center",
+    paddingTop: "36px",
+    fontSize: "32px",
+    fontWeight: "500",
+    fontFamily: 'Roboto'
+  };
+
+  myNotesTab = window.__framerNew("myNotesTab", "72:17-76:22", "#c3169c29",new Layer({
+    width: 250,
+    height: 94,
+    x: 250,
+    backgroundColor: "transparent",
+    html: "My Notes",
+    superLayer: subNavTabs
+  }));
+
+  myNotesTab.style = {
+    color: Primary,
+    textAlign: "center",
+    paddingTop: "36px",
+    fontSize: "32px",
+    fontWeight: "400",
+    fontFamily: 'Roboto'
+  };
+
+  similarTab = window.__framerNew("similarTab", "79:17-83:22", "#9a3ed642",new Layer({
+    width: 250,
+    height: 94,
+    x: 500,
+    backgroundColor: "transparent",
+    html: "Similar",
+    superLayer: subNavTabs
+  }));
+
+  similarTab.style = {
+    color: Primary,
+    textAlign: "center",
+    paddingTop: "36px",
+    fontSize: "32px",
+    fontWeight: "400",
+    fontFamily: 'Roboto'
+  };
+
+  tabsHairline = window.__framerNew("tabsHairline", "86:19-93:37", "#f6fbeda8",new Layer({
+    width: 250,
+    height: 6,
+    y: 94,
+    backgroundColor: Primary,
+    superLayer: subNavTabs
+  }));
+
+  navBar = window.__framerNew("navBar", "94:13-100:0", "#bb2975e5",new Layer({
+    width: Screen.width,
+    height: 130,
+    backgroundColor: Primary,
+    shadowY: 1,
+    shadowBlur: 1,
+    shadowColor: "rgba(0,0,0,0.2)"
+  }));
+
+  statusBarWhite = window.__framerNew("statusBarWhite", "101:21-105:0", "#ea934015",new Layer({
+    width: 725,
+    height: 18,
+    x: 15,
+    y: 8,
+    image: "images/statusBarWhite.svg",
+    superLayer: navBar
+  }));
+
+  navBarTitle = window.__framerNew("navBarTitle", "106:18-110:18", "#f0a6ec58",new Layer({
+    width: Screen.width,
+    height: 40,
+    y: navBar.height / 2 - 3,
+    backgroundColor: "transparent",
+    html: "My Books",
+    superLayer: navBar
+  }));
+
+  navBarTitle.style = {
+    fontSize: "40px",
+    fontWeight: "400",
+    textAlign: "center",
+    fontFamily: "Roboto"
+  };
+
+  sortIcon = window.__framerNew("sortIcon", "113:15-117:0", "#14d1d8e39",new Layer({
+    width: 40,
+    height: 36,
+    y: navBar.height / 2 - 3,
+    x: 30,
+    image: "images/sortIcon.svg",
+    superLayer: navBar
+  }));
+
+  searchIcon = window.__framerNew("searchIcon", "118:17-122:0", "#1549f9d96",new Layer({
+    width: 40,
+    height: 40,
+    y: navBar.height / 2 - 3,
+    x: 680,
+    image: "images/searchIcon.svg",
+    superLayer: navBar
+  }));
+
+  moreIcon = window.__framerNew("moreIcon", "123:15-127:0", "#e161fd3a",new Layer({
+    width: 44,
+    height: 12,
+    y: 73,
+    x: 590,
+    image: "images/moreIcon.svg",
+    superLayer: navBar
+  }));
+
+  starIcon = window.__framerNew("starIcon", "128:15-133:0", "#e8c7dd95",new Layer({
+    width: 46,
+    height: 44,
+    y: navBar.height / 2 - 10,
+    x: 680,
+    image: "images/starIcon.svg",
+    visible: false,
+    superLayer: navBar
+  }));
+
+  backArrow = window.__framerNew("backArrow", "134:16-142:38", "#dd95b09b",new Layer({
+    width: 18,
+    height: 36,
+    x: 30,
+    y: navBar.height / 2 - 6,
+    image: "images/backArrow.svg",
+    visible: false,
+    superLayer: navBar
+  }));
+
+  bookListScroll = window.__framerNew("bookListScroll", "143:21-146:13", "#89b3eba6",new ScrollComponent({
+    width: Screen.width,
+    height: Screen.height,
+    y: navBar.maxY,
+    backgroundColor: "white",
+    visible: true
+  }));
+
+  bookListScroll.scrollHorizontal = false;
+
+  bookListScroll.contentInset = {
+    bottom: 220
+  };
+
+  bookDetailsScroll = window.__framerNew("bookDetailsScroll", "150:24-153:14", "#e67f1a8d",new ScrollComponent({
+    width: Screen.width,
+    height: Screen.height + 200,
+    y: navBar.maxY + 100,
+    x: -750,
+    backgroundColor: "white",
+    visible: false
+  }));
+
+  bookDetailsScroll.scrollHorizontal = false;
+
+  bookDetailsScroll.contentInset = {
+    bottom: 400
+  };
+
+  bookMyNotesScroll = window.__framerNew("bookMyNotesScroll", "157:24-160:14", "#bda754a6",new ScrollComponent({
+    width: Screen.width,
+    height: Screen.height,
+    y: navBar.maxY + 100,
+    x: -750,
+    backgroundColor: "white",
+    visible: false
+  }));
+
+  bookMyNotesScroll.scrollHorizontal = false;
+
+  bookMyNotesScroll.contentInset = {
+    bottom: 300
+  };
+
+  actionBar = window.__framerNew("actionBar", "167:16-171:0", "#d206843b",new Layer({
+    width: Screen.width,
+    height: 90,
+    y: 1344,
+    backgroundColor: LightGrey,
+    visible: false
+  }));
+
+  shareIcon = window.__framerNew("shareIcon", "172:16-176:0", "#15ee512e1",new Layer({
+    width: 38,
+    height: 33,
+    x: 40,
+    y: 28,
+    image: "images/shareIcon.svg",
+    superLayer: actionBar
+  }));
+
+  favoriteIconDefault = window.__framerNew("favoriteIconDefault", "177:26-181:0", "#167ffcbdb",new Layer({
+    width: 40,
+    height: 36,
+    x: 350,
+    y: 28,
+    image: "images/favoriteIconDefault.svg",
+    superLayer: actionBar
+  }));
+
+  favoriteIcon = window.__framerNew("favoriteIcon", "182:19-187:0", "#f353c865",new Layer({
+    width: 40,
+    height: 36,
+    x: 350,
+    y: 28,
+    image: "images/favoriteIcon.svg",
+    superLayer: actionBar,
+    visible: false
+  }));
+
+  writeIcon = window.__framerNew("writeIcon", "188:16-203:20", "#162708f1c",new Layer({
+    width: 39,
+    height: 39,
+    x: 680,
+    y: 28,
+    image: "images/writeIcon.svg",
+    superLayer: actionBar
+  }));
+
+  response = function(results) {
+    var bookAuthor, bookCounterBar, bookCover, bookTitle, bookTitleDetails, booksArray, i, j, len, result, results1, scrolling, starRating;
+    booksArray = _.toArray(results);
+    bookCounterBar = window.__framerNew("bookCounterBar", "207:22-211:0", "#14e31d5ef",new Layer({
+      width: Screen.width,
+      height: 90,
+      y: 1244,
+      backgroundColor: LightGrey,
+      html: results.length + " books"
+    }));
+    bookCounterBar.style = {
+      color: Text,
+      textAlign: "center",
+      paddingTop: "30px",
+      fontSize: "32px",
+      fontWeight: "400"
+    };
+    results1 = [];
+    for (i = j = 0, len = booksArray.length; j < len; i = ++j) {
+      result = booksArray[i];
+      booksArray[i] = window.__framerNew("i", "215:22-222:1", "#112b3eb32",new Layer({
+        width: Screen.width,
+        height: 140,
+        y: 141 * i,
+        backgroundColor: "white",
+        superLayer: bookListScroll.content,
+        shadowY: 1,
+        shadowBlur: 1,
+        shadowColor: "rgba(0,0,0,0.2)"
+      }));
+      booksArray[i].style = {
+        fontFamily: 'Roboto'
+      };
+      booksArray[i].amazon = result.amazon;
+      booksArray[i].author = result.author;
+      booksArray[i].book = result.book;
+      booksArray[i].category = result.category;
+      booksArray[i].checkedOut = result.checkedOut;
+      booksArray[i].cover = result.cover;
+      booksArray[i].description = result.description;
+      booksArray[i].illustrator = result.illustrator;
+      booksArray[i].rating = result.rating;
+      booksArray[i].subtitle = result.subtitle;
+      booksArray[i].tags = result.tags;
+      booksArray[i].timesRead = result.timesRead;
+      booksArray[i].year = result.year;
+      if (result.rating === "Did not read") {
+        result.rating = "Not yet rated";
+      } else if (result.rating === "Did not like") {
+        result.rating = "★";
+      } else if (result.rating === "Liked it") {
+        result.rating = "★★";
+      } else if (result.rating === "Loved it") {
+        result.rating = "★★★";
+      }
+      if (result.book.length > 32) {
+        result.book = result.book.substring(0, 32) + "...";
+      }
+      bookCover = window.__framerNew("bookCover", "257:18-263:1", "#13227b55b",new Layer({
+        width: 140,
+        height: booksArray[i].height,
+        backgroundColor: "transparent",
+        image: result.cover,
+        superLayer: booksArray[i]
+      }));
+      bookTitle = window.__framerNew("bookTitle", "263:18-268:1", "#126e770e0",new Layer({
+        width: 600,
+        height: 40,
+        x: bookCover.width + 20,
+        y: 22,
+        backgroundColor: "transparent",
+        html: result.book,
+        superLayer: booksArray[i]
+      }));
+      bookTitle.style = {
+        color: Text,
+        fontSize: "32px",
+        fontWeight: "500"
+      };
+      bookAuthor = window.__framerNew("bookAuthor", "270:19-275:1", "#839670c5",new Layer({
+        width: 600,
+        height: 40,
+        x: bookCover.width + 20,
+        y: 60,
+        backgroundColor: "",
+        html: result.author + "," + " " + " " + " " + result.illustrator,
+        superLayer: booksArray[i]
+      }));
+      bookAuthor.style = {
+        color: Text,
+        fontSize: "28px",
+        fontWeight: "400"
+      };
+      if (result.illustrator === result.author) {
+        bookAuthor.html = result.author;
+      }
+      starRating = window.__framerNew("starRating", "280:19-285:1", "#117dadfc6",new Layer({
+        width: 300,
+        height: 30,
+        x: bookCover.width + 20,
+        y: 95,
+        html: result.rating,
+        backgroundColor: "transparent",
+        superLayer: booksArray[i]
+      }));
+      starRating.style = {
+        color: Primary
+      };
+      bookTitleDetails = window.__framerNew("bookTitleDetails", "288:25-294:1", "#15860c159",new Layer({
+        width: 560,
+        height: 40,
+        y: navBar.height / 2 - 3,
+        backgroundColor: "transparent",
+        html: result.title,
+        superLayer: navBar,
+        visible: false
+      }));
+      bookTitleDetails.style = {
+        textAlign: "center",
+        fontSize: "36px"
+      };
+      bookTitleDetails.centerX();
+      scrolling = false;
+      booksArray[i].on(Events.TouchStart, function(event, layer) {
+        return scrolling = false;
+      });
+      booksArray[i].on(Events.TouchMove, function(event, layer) {
+        return scrolling = true;
+      });
+      results1.push(booksArray[i].on(Events.TouchEnd, function(event, layer) {
+        var bookCoverDetails, bookDescription;
+        if (scrolling) {
+          return false;
+        }
+        sortIcon.visible = false;
+        moreIcon.visible = false;
+        searchIcon.visible = false;
+        navBarTitle.visible = false;
+        backArrow.visible = true;
+        starIcon.visible = true;
+        bookTitleDetails.visible = true;
+        bookDetailsScroll.visible = true;
+        subNavTabs.visible = true;
+        actionBar.visible = true;
+        if (layer.book.length > 32) {
+          bookTitleDetails.html = layer.book.substring(0, 30) + "...";
+        }
+        window.__framerAnimation("#1634b1e5a",bookListScroll.animate({
+          properties: {
+            x: 750
+          },
+          curve: animateOut
+        }));
+        window.__framerAnimation("#101fdd01d",bookDetailsScroll.animate({
+          properties: {
+            x: 0
+          },
+          curve: animateIn
+        }));
+        window.__framerAnimation("#a0b081e0",subNavTabs.animate({
+          properties: {
+            y: 130
+          },
+          curve: animateIn
+        }));
+        window.__framerAnimation("#96460ff8",bookCounterBar.animate({
+          properties: {
+            y: 1334
+          },
+          curve: animateOut
+        }));
+        window.__framerAnimation("#134f8c1bb",actionBar.animate({
+          properties: {
+            y: 1244
+          },
+          curve: animateIn
+        }));
+        Utils.delay(.5, function() {
+          bookListScroll.visible = false;
+          return bookCounterBar.visible = false;
+        });
+        bookCoverDetails = window.__framerNew("bookCoverDetails", "345:26-354:2", "#c4030758",new Layer({
+          width: Screen.width,
+          height: 410,
+          backgroundColor: "transparent",
+          image: layer.cover,
+          superLayer: bookDetailsScroll.content
+        }));
+        if (layer.rating === "Did not read") {
+          layer.rating = "Not yet rated";
+        } else if (layer.rating === "Did not like") {
+          layer.rating = "★";
+        } else if (layer.rating === "Liked it") {
+          layer.rating = "★★";
+        } else if (layer.rating === "Loved it") {
+          layer.rating = "★★★";
+        }
+        bookDescription = window.__framerNew("bookDescription", "363:25-367:2", "#11cbb741b",new Layer({
+          width: Screen.width,
+          y: bookCoverDetails.maxY + 30,
+          backgroundColor: "transparent",
+          superLayer: bookDetailsScroll.content
+        }));
+        bookDescription.style = {
+          fontFamily: 'Roboto'
+        };
+        bookDescription.html = '<div class = "bookDescription"> <p class = "bookTitle">' + layer.book + '</p> <p class = "lineAdjust15"></p> <p class = "subtitle">' + layer.author + '</p> <p class = "lineAdjust40"></p> <p class = "header">Book Description</p> <p class = "lineAdjust30"></p> <p class = "text">' + layer.description + '</p> <p class = "lineAdjust40"></p> <p class = "line"></p> <p class = "lineAdjust40"></p> <div class = "bookInformation"> <span class = "amazon">Amazon</span> <p class = "header">Information</p> <p class = "lineAdjust30"></p> <p class = "text">Illustrator: <span class = "title">' + layer.illustrator + '</span></p> <p class = "lineAdjust10"></p> <p class = "text">Category: <span class = "title">' + layer.category + '</span></p> <p class = "lineAdjust10"></p> <p class = "text">Year: <span class = "title">' + layer.year + '</p> <p class = "lineAdjust10"></p> <p class = "text">My Rating: <span class = "stars">' + layer.rating + '</span></p> <p class = "lineAdjust10"></p> <p class = "text">Tags: <span class = "title">' + layer.tags + '</p> <p class = "lineAdjust10"></p> <p class = "text">Amazon Rating: <span class = "title">' + layer.amazon + '</p> <p class = "lineAdjust10"></p> <p class = "text">Last Checked Out: <span class = "title">' + layer.checkedOut + '</p> </div> </div>';
+        return backArrow.on(Events.TouchEnd, function() {
+          navBarTitle.visible = true;
+          bookTitleDetails.visible = false;
+          window.__framerAnimation("#91a7c1a0",bookDetailsScroll.animate({
+            properties: {
+              x: -750
+            },
+            curve: animateOut
+          }));
+          Utils.delay(.5, function() {
+            bookDetailsScroll.visible = false;
+            bookDescription.html = "";
+            bookTitleDetails.html = "";
+            return subNavTabs.visible = false;
+          });
+          bookListScroll.visible = true;
+          bookCounterBar.visible = true;
+          window.__framerAnimation("#12e6f29c0",bookListScroll.animate({
+            properties: {
+              x: 0
+            },
+            curve: animateIn
+          }));
+          window.__framerAnimation("#cd21db83",bookCounterBar.animate({
+            properties: {
+              y: 1244
+            },
+            curve: animateIn
+          }));
+          return window.__framerAnimation("#c2b7699b",subNavTabs.animate({
+            properties: {
+              y: 0
+            },
+            curve: animateIn
+          }));
+        });
+      }));
+    }
+    return results1;
+  };
+
+  firebase.get("/results", response, {
+    orderBy: "$key"
+  });
+
+}).call(this);
+})</script>
+
+	</head>
+	<body>
+	</body>
+</html>
